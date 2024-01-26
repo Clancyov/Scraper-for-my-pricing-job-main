@@ -7,10 +7,12 @@ import time
 class Iron_Scraper :
 
     def Scrap ( self ) :
+
         # link to the webpage which data is there
         URL = "https://www.iranjib.ir/showgroup/38/%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%87%D9%86-%D8%A2%D9%84%D8%A7%D8%AA/"
         # saving html code of the page
         HTML_Code = urlopen(URL).read().decode("utf-8")
+
         # making a soup of the html code to handle it easier
         Main_Soup = BeautifulSoup(HTML_Code, 'lxml')
         # finding all tables in the page
@@ -21,6 +23,7 @@ class Iron_Scraper :
         All_Data = []
         # making a soup of all rows in the the table.
         Rows = Price_Table_Soup.find_all("tr")
+
         # iterating between rows and cells to extracting data
         for Row in Rows :
             # making a soup of each row
@@ -33,6 +36,7 @@ class Iron_Scraper :
             # appending data to the holder array
             for Data in Cell :
                 All_Data.append(Data.get_text() + "\n")
+                
         # saving the output in a textfile
         with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-{time.strftime("(%Y_%m_%d--%H_%M_%S)")}.txt",'w',encoding='utf-8') as file:
             for data in All_Data :
