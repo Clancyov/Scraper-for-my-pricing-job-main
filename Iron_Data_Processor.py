@@ -1,5 +1,7 @@
 
+import os
 import re
+import time
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import csv
@@ -119,6 +121,9 @@ class Iron_Data_processor :
         font_file="Inputs\\Iron\\Fonts\\IRANSans_Black.ttf"
         font_size= 35
         font=ImageFont.truetype(font_file,int(font_size))
+        directory=f"Outputs\\Iron\\Images\\{time.strftime('(%Y_%m_%d--%H_%M)')}"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         for page in Completed_Pages:
             raw_canvas_image=Image.open(page.Image)
             Drawer=ImageDraw.Draw(raw_canvas_image)
@@ -128,8 +133,17 @@ class Iron_Data_processor :
                 Final_data = access.Convert_Data_To_ENG_Numbers(data[0])
                 Drawer.text((x,y),Final_data,fill="black",font=font)
                 print("drew")
-            raw_canvas_image.show()
-
+            raw_canvas_image.save(os.path.join(directory,f"{page.name}.png"))
+        files=os.listdir(directory)
+        image_files=[file for file in files if file.endswith(('.jpg','.png'))]
+        for filename in image_files:
+            filepath=os.path.join(directory,filename)
+            image=mpimg.imread(filepath)
+            plt.imshow(image)
+            plt.title(filename)
+            plt.axis('off')
+            plt.show()
+        
     def Process(self):
         Processor=Iron_Data_processor()
         Table = Processor.Data_Reader()
