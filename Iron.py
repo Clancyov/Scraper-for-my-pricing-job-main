@@ -1,5 +1,5 @@
 from Iron_Scraper import Iron_Scraper
-from Iron_Data_Processor import Iron_Data_processor
+from Iron_Data_Processor import Iron_Data_Processor
 class Iron:
 
     def Scrap (self,Now) :
@@ -9,7 +9,7 @@ class Iron:
     
     def Process_Data (self,Now) :
 
-        Processor = Iron_Data_processor()
+        Processor = Iron_Data_Processor()
         Processor.Process(Now)
 
     def Run(self,Now):
