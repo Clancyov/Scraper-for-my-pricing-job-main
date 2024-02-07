@@ -1,7 +1,5 @@
-
 import os
 import re
-import time
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import csv
@@ -36,10 +34,10 @@ class page:
 
 class Iron_Data_processor :
 
-    def Data_Reader (self) :
+    def Data_Reader (self,Now) :
 
         All_Tables=[]
-        with open("Outputs\\Iron\\Scraped_data\\Scraped_data-(2024_01_26--15_09_17).txt", "r", encoding="utf-8") as Data_File :
+        with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-({Now}).txt", "r", encoding="utf-8") as Data_File :
             for line in Data_File :
                 All_Tables.append(line)        
         return All_Tables
@@ -117,11 +115,11 @@ class Iron_Data_processor :
         else:
             return data
     
-    def Make_Tagged_Images (self,Completed_Pages):
+    def Make_Tagged_Images (self,Completed_Pages,Now):
         font_file="Inputs\\Iron\\Fonts\\IRANSans_Black.ttf"
         font_size= 35
         font=ImageFont.truetype(font_file,int(font_size))
-        directory=f"Outputs\\Iron\\Images\\{time.strftime('(%Y_%m_%d--%H_%M)')}"
+        directory=f"Outputs\\Iron\\Images\\{Now}"
         if not os.path.exists(directory):
             os.makedirs(directory)
         for page in Completed_Pages:
@@ -144,16 +142,13 @@ class Iron_Data_processor :
             plt.axis('off')
             plt.show()
         
-    def Process(self):
+    def Process(self,Now):
         Processor=Iron_Data_processor()
-        Table = Processor.Data_Reader()
+
+        Table = Processor.Data_Reader(Now)
         Shaped_Table = Processor.Shaper(Table)
         Cleaned_Table = [[Processor.Clean_Data(cell) for cell in row] for row in Shaped_Table]
         Pages = Processor.Make_Pages_Objects()
         Pages_with_data= Processor.Load_data(Pages,Cleaned_Table)
         Completed_Pages=Processor.Load_positions(Pages_with_data)
-        Tagged_Images=Processor.Make_Tagged_Images(Completed_Pages)
-
-
-R=Iron_Data_processor()
-R.Process()
+        Tagged_Images=Processor.Make_Tagged_Images(Completed_Pages,Now)

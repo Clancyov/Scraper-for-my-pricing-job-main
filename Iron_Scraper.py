@@ -2,11 +2,10 @@
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import time
 
 class Iron_Scraper :
 
-    def Scrap ( self ) :
+    def Scrap ( self , Now) :
 
         # link to the webpage which data is there
         URL = "https://www.iranjib.ir/showgroup/38/%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%87%D9%86-%D8%A2%D9%84%D8%A7%D8%AA/"
@@ -38,6 +37,6 @@ class Iron_Scraper :
                 All_Data.append(Data.get_text() + "\n")
                 
         # saving the output in a textfile
-        with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-{time.strftime("(%Y_%m_%d--%H_%M_%S)")}.txt",'w',encoding='utf-8') as file:
+        with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-{Now}.txt",'w',encoding='utf-8') as file:
             for data in All_Data :
                 file.write(data)
