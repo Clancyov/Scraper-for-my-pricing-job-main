@@ -3,6 +3,7 @@ import re
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import csv
+import jdatetime
 
 Images_Paths = ["Inputs\\Iron\\Canvas_Images\\Currency_Gold",
                 "Inputs\\Iron\\Canvas_Images\\Akhbar_Eghtesadi"]
@@ -140,6 +141,20 @@ class Iron_Data_Processor :
                 Drawer.text((X, Y),Final_Data,fill="black",font=Font)
             Raw_Canvas_Image.save(os.path.join(Path,f"{Page.Name}.png"))
         
+    def Make_Cover_Page( self, input_path, output_path ):
+        Font_File = "Inputs\\Iron\\Fonts\\BKoodkBd.ttf"
+        Font_Size = 70
+        Font = ImageFont.truetype(Font_File,int(Font_Size))
+        Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
+        Path_Eqtesadi = os.path.join(input_path[1],"Cover.jpg")
+        Raw_Canvas_Image_Currencygold = Image.open(Path_Currencygold)
+        Raw_Canvas_Image_Eqtesadi = Image.open(Path_Eqtesadi)
+        Drawer_Currencygold = ImageDraw.Draw(Raw_Canvas_Image_Currencygold)
+        Drawer_Eqtesadi = ImageDraw.Draw(Raw_Canvas_Image_Eqtesadi)
+        Drawer_Currencygold.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
+        Drawer_Eqtesadi.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
+        Raw_Canvas_Image_Currencygold.save(os.path.join(output_path[0],"0-cover.png"))
+        Raw_Canvas_Image_Eqtesadi.save(os.path.join(output_path[1],"0-cover.png"))
 
     def Process( self, Now ) :
 
@@ -149,9 +164,10 @@ class Iron_Data_Processor :
         Cleaned_Table = [[Processor.Clean_Data(cell) for cell in row] for row in Shaped_Table]
         Pages_0 = Processor.Make_Pages_Objects(Images_Paths[0])
         Pages_1 = Processor.Make_Pages_Objects(Images_Paths[1])
-        Pages_With_Data_0= Processor.Load_Data(Pages_0,Cleaned_Table)
-        Pages_With_Data_1= Processor.Load_Data(Pages_1,Cleaned_Table)
-        Completed_Pages_0=Processor.Load_positions(Pages_With_Data_0)
-        Completed_Pages_1=Processor.Load_positions(Pages_With_Data_1)
-        Tagged_Images_0=Processor.Make_Tagged_Images(Completed_Pages_0,Output_Paths[0])
-        Tagged_Images_1=Processor.Make_Tagged_Images(Completed_Pages_1,Output_Paths[1])
+        Pages_With_Data_0 = Processor.Load_Data(Pages_0,Cleaned_Table)
+        Pages_With_Data_1 = Processor.Load_Data(Pages_1,Cleaned_Table)
+        Completed_Pages_0 =Processor.Load_positions(Pages_With_Data_0)
+        Completed_Pages_1 =Processor.Load_positions(Pages_With_Data_1)
+        Tagged_Images_0 = Processor.Make_Tagged_Images(Completed_Pages_0,Output_Paths[0])
+        Tagged_Images_1 = Processor.Make_Tagged_Images(Completed_Pages_1,Output_Paths[1])
+        cover = Processor.Make_Cover_Page(Images_Paths,Output_Paths)

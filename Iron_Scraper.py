@@ -40,3 +40,5 @@ class Iron_Scraper :
         with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-{Now}.txt",'w',encoding='utf-8') as file:
             for data in All_Data :
                 file.write(data)
+
+    
