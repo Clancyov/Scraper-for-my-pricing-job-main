@@ -9,6 +9,7 @@
         "Galwanize",
         "imread",
         "imshow",
+        "Jalali",
         "jdatetime",
         "Khamoot",
         "Koodk",
@@ -18,11 +19,13 @@
         "mpimg",
         "Nabshi",
         "Nawdani",
+        "Pricelists",
         "Profill",
         "Siah",
         "tablefmt",
         "tableit",
         "Tasme",
+        "textbbox",
         "Waraq"
     ]
 }
