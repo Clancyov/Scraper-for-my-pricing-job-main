@@ -1,5 +1,8 @@
+import logging
 from Iron_Scraper import Iron_Scraper
 from Iron_Data_Processor import Iron_Data_Processor
+
+Logger = logging.getLogger(__name__)
 
 class Iron :
 
@@ -20,4 +23,7 @@ class Iron :
         Runner=Iron()
 
         Runner.Scrap(Now)
+        Logger.info('Scraping Phase Completed')
+
         Runner.Process_Data(Now)
+        Logger.info('Imagination Phase Completed')

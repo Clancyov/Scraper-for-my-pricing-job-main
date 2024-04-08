@@ -1,8 +1,11 @@
+import logging
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import re
 import os
 import jdatetime
+
+logger = logging.getLogger(__name__)
 
 # Class to process phone data and generate images.
 class Phone_Data_Processor:
@@ -21,10 +24,15 @@ class Phone_Data_Processor:
     # Method to read data from a file.
     def data_reader(self,Now):
 
-        with open(f"Outputs\\Phones\\Scraped_data\\Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
-            # Read lines from file
-            lines = file.readlines()
-        # Return the red lines
+        try:
+            with open(f"Outputs\\Phones\\Scraped_data\\Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
+                # Read lines from file
+                lines = file.readlines()
+            # Return the red lines
+        except:
+            logger.critical('Failed To Load Scraped Data File')
+        else:
+            logger.info('Scraped Data Loaded')
         return lines
     
 
@@ -44,25 +52,35 @@ class Phone_Data_Processor:
     # Method to filter out Persian phrases from a list of text lines.
     def filter_list(self, text_lines):
 
-        # Call filter_persian_phrases method
-        no_persian_phrases = self.filter_persian_phrases(text_lines)  
-        # Return the list of text lines without Persian phrases
+        try:
+            # Call filter_persian_phrases method
+            no_persian_phrases = self.filter_persian_phrases(text_lines)  
+            # Return the list of text lines without Persian phrases
+        except:
+            logger.error('Failed To Delete Persian Phrases')
+        else:
+            logger.info('Persian Phrases Are deleted')
+
         return no_persian_phrases  
 
 
     # Method to reshape a list of text lines into a structured format.
     def reshape_list(self, text_lines):
-
-        # Calculate the number of rows based on the length of the text lines
-        num_rows = -(-len(text_lines) // 7)  
-        # Split the text lines into rows
-        reshaped_data = np.array_split(text_lines, num_rows)  
-        # Convert the reshaped data to string type
-        reshaped_data_str = np.array(reshaped_data).astype(str)  
-        # Remove unwanted columns
-        reshaped_data_without_unwanted_columns = np.delete(reshaped_data_str, np.s_[1:6], axis=1)  
-        # Filter out rows containing "call" in the last column
-        filtered_data = [row for row in reshaped_data_without_unwanted_columns if "call" not in row[-1].lower()]  
+        try:
+            # Calculate the number of rows based on the length of the text lines
+            num_rows = -(-len(text_lines) // 7)  
+            # Split the text lines into rows
+            reshaped_data = np.array_split(text_lines, num_rows)  
+            # Convert the reshaped data to string type
+            reshaped_data_str = np.array(reshaped_data).astype(str)  
+            # Remove unwanted columns
+            reshaped_data_without_unwanted_columns = np.delete(reshaped_data_str, np.s_[1:6], axis=1)  
+            # Filter out rows containing "call" in the last column
+            filtered_data = [row for row in reshaped_data_without_unwanted_columns if "call" not in row[-1].lower()]
+        except:
+            logger.error('Failed To Reshape Data')
+        else:
+            logger.info('Date Reshaped')
         # Return the filtered data
         return filtered_data  
     
@@ -77,23 +95,29 @@ class Phone_Data_Processor:
         brands = [samsung, xiaomi, nokia]  
 
         current_brand=None
-        for row in reshaped_data:
-            if "SAMSUNG" in row[0]:
-                current_brand=samsung
-            elif "XIAOMI" in row[0]:
-                current_brand=xiaomi
-            elif "NOKIA" in row[0]:
-                current_brand=nokia
-            elif current_brand==None or "Tab" in row[0]:
-                continue
-            elif row[1]=="  \n" :
-                break
-            current_brand.append(row)
-            
-        # Delete the first element (Header) 
-        del samsung[0]  
-        del xiaomi[0]   
-        del nokia[0]    
+
+        try:
+            for row in reshaped_data:
+                if "SAMSUNG" in row[0]:
+                    current_brand=samsung
+                elif "XIAOMI" in row[0]:
+                    current_brand=xiaomi
+                elif "NOKIA" in row[0]:
+                    current_brand=nokia
+                elif current_brand==None or "Tab" in row[0]:
+                    continue
+                elif row[1]=="  \n" :
+                    break
+                current_brand.append(row)
+
+            # Delete the first element (Header) 
+            del samsung[0]  
+            del xiaomi[0]   
+            del nokia[0]
+        except:
+            logger.critical('Couldnt Separate Brands From Each Other')
+        else:
+            logger.info('Brands Are Separated')
         # Return the list of brand lists
         return brands   
 
@@ -101,11 +125,17 @@ class Phone_Data_Processor:
     # Method to delete extra spaces from the text in each cell of the brand lists.
     def delete_extra_spaces(self, brands):
 
-        for brand_list in brands:
-            for row in brand_list:
-                # Replace multiple spaces with single space in each cell
-                row[:] = [re.sub(r'\s+', ' ', cell) for cell in row] 
-        # Return the modified brand lists 
+        try:
+            for brand_list in brands:
+                for row in brand_list:
+                    # Replace multiple spaces with single space in each cell
+                    row[:] = [re.sub(r'\s+', ' ', cell) for cell in row] 
+            # Return the modified brand lists 
+        except:
+            logger.warning('Failed to Delete Extra Space Characters')
+        else:
+            logger.info('Extra Spaces Are Deleted')
+
         return brands   
 
 
@@ -150,29 +180,35 @@ class Phone_Data_Processor:
     # Method to divide the data into chunks and create images for each chunk.
     def divide_and_make_images(self, brands):
 
-        # Counter for naming images
-        counter = 0  
-        # Temporary list to store data for each image
-        temp_list = []  
-        for brand in brands:
-            for idx, item in enumerate(brand):
-                # Add item to temporary list
-                temp_list.append(item)  
-                # Check if the temporary list is full or if it's the last item in the brand list
-                if len(temp_list) == 15 or idx == len(brand) - 1:
-                    if brand == brands[0]:
-                        # Set the name based on the brand
-                        name = "samsung"  
-                    elif brand == brands[1]: 
-                        name = "xiaomi"
-                    elif brand == brands[2]:
-                        name = "nokia"
-                    # Write data onto image
-                    self.write_on_images(data_list=temp_list, name=name, c=counter) 
-                    # Increment counter 
-                    counter += 1  
-                    # Reset temporary list
-                    temp_list = []  
+        try:
+            # Counter for naming images
+            counter = 0  
+            # Temporary list to store data for each image
+            temp_list = []  
+            for brand in brands:
+                for idx, item in enumerate(brand):
+                    # Add item to temporary list
+                    temp_list.append(item)  
+                    # Check if the temporary list is full or if it's the last item in the brand list
+                    if len(temp_list) == 15 or idx == len(brand) - 1:
+                        if brand == brands[0]:
+                            # Set the name based on the brand
+                            name = "samsung"  
+                        elif brand == brands[1]: 
+                            name = "xiaomi"
+                        elif brand == brands[2]:
+                            name = "nokia"
+                        # Write data onto image
+                        self.write_on_images(data_list=temp_list, name=name, c=counter) 
+                        # Increment counter 
+                        counter += 1  
+                        # Reset temporary list
+                        temp_list = []
+        except:
+            logging.critical('Couldnt Make Images')
+        else:
+            logging.info('Images Have Been Made')
+            
         return 0
 
 
