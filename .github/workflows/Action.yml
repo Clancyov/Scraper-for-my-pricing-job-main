@@ -1,0 +1,38 @@
+name: Project Runner
+
+on:
+  schedule:
+    - cron: '0 0 1 1 1' #10min
+
+jobs: 
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+            path: "Requierments.txt"
+          
+      - name: Run script
+
+      - name: execute main
+        run: python Main.py
+        
+      - uses: actions/checkout@master
+      - name: send photo message
+        uses: appleboy/telegram-action@master
+        with:
+             to: ${{ secrets.CHAT_ID }}
+             token: ${{ secrets.TELEGRAM_TOKEN }}
+             message: test
+             photo: test_photo1.png
+             document: test_photo2.png
