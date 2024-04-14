@@ -1,8 +1,9 @@
 name: Project Runner
 
 on:
-  schedule:
-    - cron: '* * * * *' #10min
+  push:
+    branches:
+      - main  # Trigger the workflow on push events to the main branch
 
 jobs: 
   run_script:
