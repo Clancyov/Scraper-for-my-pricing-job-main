@@ -37,9 +37,6 @@ jobs:
              photo: test_photo1.png
              document: test_photo2.png
 
-
-
-
       - name: commit files
         run: |
           git config --local user.email "aminachak8182@gmail.com"
