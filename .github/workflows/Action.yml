@@ -21,8 +21,6 @@ jobs:
         uses: py-actions/py-dependency-install@v4
         with:
             path: "Requierments.txt"
-          
-      - name: Run script
 
       - name: execute main
         run: python Main.py
