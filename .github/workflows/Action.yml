@@ -36,3 +36,19 @@ jobs:
              message: test
              photo: test_photo1.png
              document: test_photo2.png
+
+
+
+
+      - name: commit files
+        run: |
+          git config --local user.email "aminachak8182@gmail.com"
+          git config --local user.name "Clancyov"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
+
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.PUSHER_TOKEN }}
+          branch: main 
