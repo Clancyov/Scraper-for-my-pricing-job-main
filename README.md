@@ -3,3 +3,4 @@ this project will scrap prices and stuff from websites that i want (in future it
 
 also im going to refresh some of my abilitys like oop and so on
 (dirty coding for excersises and exams made me forgetting some important thins.
+
