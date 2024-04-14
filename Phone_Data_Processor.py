@@ -66,6 +66,7 @@ class Phone_Data_Processor:
 
     # Method to reshape a list of text lines into a structured format.
     def reshape_list(self, text_lines):
+        filtered_data = None
         try:
             # Calculate the number of rows based on the length of the text lines
             num_rows = -(-len(text_lines) // 7)  
