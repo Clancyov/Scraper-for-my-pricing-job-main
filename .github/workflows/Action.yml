@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -27,7 +28,7 @@ jobs:
         run: python Main.py
         
       - uses: actions/checkout@master
-      - name: send photo message
+      - name: Telegram Actions
         uses: appleboy/telegram-action@master
         with:
              to: ${{ secrets.CHAT_ID }}
