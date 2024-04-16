@@ -25,7 +25,13 @@ jobs:
             path: "Requierments.txt"
 
       - name: execute main
-        run: python Main.py
+        run: |
+          python Main.py
+          git config --local user.email "aminachak8182@gmail.com"
+          git config --local user.name "Clancyov"
+          git add -A
+          git status
+          git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
         
       - uses: actions/checkout@master
       - name: Telegram Actions
