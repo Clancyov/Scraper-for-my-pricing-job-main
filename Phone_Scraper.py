@@ -10,7 +10,7 @@ class Phone_Scraper :
     def __init__(self):
         # Define the directory structure
         self.output_directory = "Outputs"
-        self.phone_directory = os.path.join(self.output_directory, "Phone")
+        self.phone_directory = os.path.join(self.output_directory, "Phones")
         self.scraped_data_directory = os.path.join(self.phone_directory, "Scraped_data")
 
         # Create the directories if they don't exist
