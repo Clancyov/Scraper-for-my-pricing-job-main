@@ -28,7 +28,7 @@ class Iron_Scraper :
         #Scraping
         try:
             # saving html code of the page
-        HTML_Code = urlopen(URL).read().decode("utf-8")
+            HTML_Code = urlopen(URL).read().decode("utf-8")
         except:
             Logger.critical('Scrapping Faild')
         else:
