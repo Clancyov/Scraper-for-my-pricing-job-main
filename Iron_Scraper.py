@@ -19,13 +19,6 @@ class Iron_Scraper :
         os.makedirs(self.iron_directory, exist_ok=True)
         os.makedirs(self.scraped_data_directory, exist_ok=True)
 
-        self.input_directory = "Inputs"
-        self.iron_input_directory = os.path.join(self.input_directory, "Iron")
-        self.iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
-        self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
-        self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
-    
-
 
     def Scrap ( self, Now) :
 
