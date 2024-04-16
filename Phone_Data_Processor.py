@@ -23,7 +23,7 @@ class Phone_Data_Processor:
 
     # Method to read data from a file.
     def data_reader(self,Now):
-
+        lines=[]
         try:
             with open(f"Outputs\\Phones\\Scraped_data\\Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
                 # Read lines from file
