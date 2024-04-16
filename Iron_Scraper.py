@@ -26,13 +26,13 @@ class Iron_Scraper :
         URL = "https://www.iranjib.ir/showgroup/38/%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%87%D9%86-%D8%A2%D9%84%D8%A7%D8%AA/"
 
         #Scraping
-        try:
+        # try:
             # saving html code of the page
-            HTML_Code = urlopen(URL).read().decode("utf-8")
-        except:
-            Logger.critical('Scrapping Faild')
-        else:
-            Logger.info('Data Scaraped Successfully')
+        HTML_Code = urlopen(URL).read().decode("utf-8")
+        # except:
+            # Logger.critical('Scrapping Faild')
+        # else:
+            # Logger.info('Data Scaraped Successfully')
 
         #Pre process
         try:
