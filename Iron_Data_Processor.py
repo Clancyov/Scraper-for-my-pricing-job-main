@@ -174,7 +174,10 @@ class Iron_Data_Processor :
                     access = Iron_Data_Processor()
                     Final_Data = access.Convert_Data_To_ENG_Numbers(Data[0])
                     Drawer.text((X, Y),Final_Data,fill="black",font=Font)
-                Raw_Canvas_Image.save(os.path.join(Path,f"{Page.Name}.png"))
+                if not os.path.exists(Path):
+                    os.makedirs(Path)
+                    file_path = os.path.join(Path, f"{Page.Name}.png")
+                    Raw_Canvas_Image.save(file_path)
         except:
             logger.critical('Couldent Make Images')
         else:
