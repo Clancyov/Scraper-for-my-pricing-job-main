@@ -33,7 +33,6 @@ jobs:
           git status
           git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
         
-      - uses: actions/checkout@master
       - name: Telegram Actions
         uses: appleboy/telegram-action@master
         with:
