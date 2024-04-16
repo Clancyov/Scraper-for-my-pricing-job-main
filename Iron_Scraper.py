@@ -62,7 +62,7 @@ class Iron_Scraper :
         #Save2
         try:        
             # saving the output in a textfile
-            with open(f"Outputs\\Iron\\Scraped_data\\Scraped_data-{Now}.txt",'w',encoding='utf-8') as File:
+            with open(f"Scraped_data-{Now}.txt",'w',encoding='utf-8') as File:
                 for data in All_Data :
                     File.write(data)
         except:
