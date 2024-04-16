@@ -61,6 +61,7 @@ class Iron_Scraper :
 
         #Save2
         try:        
+            print("kir to cose fateme")
             # saving the output in a textfile
             with open(f"Scraped_data-{Now}.txt",'w',encoding='utf-8') as File:
                 for data in All_Data :
