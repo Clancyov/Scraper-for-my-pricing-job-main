@@ -7,6 +7,18 @@ Logger = logging.getLogger(__name__)
 
 class Iron_Scraper :
 
+    def __init__(self):
+        # Define the directory structure
+        self.output_directory = "Outputs"
+        self.iron_directory = os.path.join(self.output_directory, "Iron")
+        self.scraped_data_directory = os.path.join(self.iron_directory, "Scraped_data")
+
+        # Create the directories if they don't exist
+        os.makedirs(self.output_directory, exist_ok=True)
+        os.makedirs(self.iron_directory, exist_ok=True)
+        os.makedirs(self.scraped_data_directory, exist_ok=True)
+
+
     def Scrap ( self, Now) :
 
         # link to the webpage which data is there
@@ -61,12 +73,14 @@ class Iron_Scraper :
 
         #Save2
         try:        
-            print("kir to cose fateme")
             # saving the output in a textfile
-            with open(f"Scraped_data-{Now}.txt",'w',encoding='utf-8') as File:
-                for data in All_Data :
+            file_name = f"Scraped_data-{Now}.txt"
+            file_path = os.path.join(self.scraped_data_directory, file_name)
+            with open(file_path, 'w', encoding='utf-8') as File:
+                for data in All_Data:
                     File.write(data)
-        except:
-            Logger.critical('Saving Data Faild')
+        except :
+            print()
+            Logger.critical('Saving Data Failed')
         else:
             Logger.info('Data Saved Successfully')
