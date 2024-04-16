@@ -1,6 +1,7 @@
 import logging
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import os
 
 logger = logging.getLogger(__name__)
 
