@@ -81,7 +81,6 @@ class Iron_Scraper :
                 for data in All_Data:
                     File.write(data)
         except :
-            print()
             Logger.critical('Saving Data Failed')
         else:
             Logger.info('Data Saved Successfully')
