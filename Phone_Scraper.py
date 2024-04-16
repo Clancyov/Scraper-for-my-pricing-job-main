@@ -3,8 +3,20 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
+
 class Phone_Scraper :
 
+    def __init__(self):
+        # Define the directory structure
+        self.output_directory = "Outputs"
+        self.phone_directory = os.path.join(self.output_directory, "Phone")
+        self.scraped_data_directory = os.path.join(self.phone_directory, "Scraped_data")
+
+        # Create the directories if they don't exist
+        os.makedirs(self.output_directory, exist_ok=True)
+        os.makedirs(self.phone_directory, exist_ok=True)
+        os.makedirs(self.scraped_data_directory, exist_ok=True)
+        
     def Scrap ( self, Now) :
         try:
             # link to the webpage which data is there
@@ -47,7 +59,9 @@ class Phone_Scraper :
         
         try:
             # saving the output in a textfile
-            with open(f"Outputs\\Phones\\Scraped_data\\Scraped_data-{Now}.txt", 'w', encoding='utf-8') as File:
+            file_name = f"Scraped_data-{Now}.txt"
+            file_path = os.path.join(self.scraped_data_directory, file_name)
+            with open(file_path, 'w', encoding='utf-8') as File:
                 for data in All_Data:
                     File.write(data)
         except:
