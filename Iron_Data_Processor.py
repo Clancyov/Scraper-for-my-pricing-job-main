@@ -42,7 +42,7 @@ class Page :
         self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
         self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
         self.iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
-        self.fonts = os.path.join()
+        self.fonts = os.path.join(self.iron_input_directory, "Fonts")
         
 
 
@@ -52,9 +52,13 @@ class Iron_Data_Processor :
     def Data_Reader ( self, Now) :
 
         All_Tables=[]
-
+        self.outputs_directory = "Outputs"
+        self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
+        self.scraped_data_iron_outputs_directory = os.path.join(self.iron_outputs_directory, "Scraped_data")
+      
+        File_name = "Scraped_data-{Now}.txt"
         try:
-            with open ( f"Outputs\\Iron\\Scraped_data\\Scraped_data-{Now}.txt" , "r" , encoding = "utf-8" ) as Data_File :
+            with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
                 for Line in Data_File :
                     All_Tables.append(Line)        
         except:
