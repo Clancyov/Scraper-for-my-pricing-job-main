@@ -46,9 +46,9 @@ class Iron_Data_Processor :
         self.iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
         self.iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
 
-         Output_Paths = [self.iron_images_output_currency_gold_directory,self.iron_images_output_akhbar_eghtesadi_directory]
+        Output_Paths = [self.iron_images_output_currency_gold_directory,self.iron_images_output_akhbar_eghtesadi_directory]
              
-         Images_Paths = [self.iron_canvas_images_currency_gold_directory,self.iron_canvas_images_akhbar_eghtesadi_directory]
+        Images_Paths = [self.iron_canvas_images_currency_gold_directory,self.iron_canvas_images_akhbar_eghtesadi_directory]
 
     def Data_Reader ( self, Now) :
 
