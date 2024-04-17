@@ -8,9 +8,6 @@ import jdatetime
 
 logger = logging.getLogger(__name__)
 
-Images_Paths = ["Inputs\\Iron\\Canvas_Images\\Currency_Gold",
-                "Inputs\\Iron\\Canvas_Images\\Akhbar_Eghtesadi"]
-
 Names = ["1-Tir_Ahan",
          "2-Milgerd",
          "3-Profill",
@@ -21,7 +18,22 @@ Names = ["1-Tir_Ahan",
          "8-Khamoot",
          "9-Waraq_Galwanize"]
 
-Capacities = [9,12,10,8,7,12,10,6,10]
+self.input_directory = "Inputs"
+self.iron_input_directory = os.path.join(self.input_directory, "Iron")
+self.iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
+self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
+self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
+self.iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
+self.fonts = os.path.join(self.iron_input_directory, "Fonts")
+self.outputs_directory = "Outputs"
+self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
+self.iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
+Akhbar_Eghtesadi
+Akhbar_Eghtesadi
+Images_Paths = [self.iron_canvas_images_currency_gold_directory,
+                self.iron_canvas_images_akhbar_eghtesadi_directory]
+
+Capacities = [9,12,10,8,7,12,10,6,10]  
 
 Output_Paths = ["Outputs\\Iron\\Images\\Currency_Gold",
                 "Outputs\\Iron\\Images\\Akhbar_Eghtesadi"]
@@ -35,36 +47,23 @@ class Page :
         self.Data=Data
         self.Positions=Positions
 
-        
-        self.input_directory = "Inputs"
-        self.iron_input_directory = os.path.join(self.input_directory, "Iron")
-        self.iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
-        self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
-        self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
-        self.iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
-        self.fonts = os.path.join(self.iron_input_directory, "Fonts")
-        
-
-
 class Iron_Data_Processor :
 
 
     def Data_Reader ( self, Now) :
 
         All_Tables=[]
-        self.outputs_directory = "Outputs"
-        self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
         self.scraped_data_iron_outputs_directory = os.path.join(self.iron_outputs_directory, "Scraped_data")
       
         File_name = f"Scraped_data-{Now}.txt"
-        # try:
-        with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
-            for Line in Data_File :
-                All_Tables.append(Line)        
-        # except:
-            # logger.critical('Scraped Data File Couldent Be Read')
-        # else:
-            # logger.info('Data File Has Been Red Successfully')
+        try:
+            with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
+                for Line in Data_File :
+                    All_Tables.append(Line)        
+        except:
+            logger.critical('Scraped Data File Couldent Be Read')
+        else:
+            logger.info('Data File Has Been Red Successfully')
 
         return All_Tables
     
@@ -130,8 +129,9 @@ class Iron_Data_Processor :
 
         Positions = []
         Page_Positions = []
+        File_name="positions.csv"
         try:
-            with open ('Inputs\\Iron\\positions\\positions.csv' , mode='r' , encoding = 'utf-8' ) as File :
+            with open (os.path.join(self.iron_positions_directory, File_name) , mode='r' , encoding = 'utf-8' ) as File :
                 reader = csv.reader(File)
                 for row in reader :
                     Positions.append(row)
@@ -177,7 +177,7 @@ class Iron_Data_Processor :
 
     def Make_Tagged_Images ( self, Completed_Pages, Path ) :
         try:
-            Font_File = "Inputs\\Iron\\Fonts\\IRANSans_Black.ttf"
+            Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
             Font_Size = 35
             Font = ImageFont.truetype(Font_File, int(Font_Size))
             for Page in Completed_Pages :
