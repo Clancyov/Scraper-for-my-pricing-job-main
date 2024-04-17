@@ -57,14 +57,14 @@ class Iron_Data_Processor :
         self.scraped_data_iron_outputs_directory = os.path.join(self.iron_outputs_directory, "Scraped_data")
       
         File_name = "Scraped_data-{Now}.txt"
-        try:
-            with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
-                for Line in Data_File :
-                    All_Tables.append(Line)        
-        except:
-            logger.critical('Scraped Data File Couldent Be Read')
-        else:
-            logger.info('Data File Has Been Red Successfully')
+        # try:
+        with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
+            for Line in Data_File :
+                All_Tables.append(Line)        
+        # except:
+            # logger.critical('Scraped Data File Couldent Be Read')
+        # else:
+            # logger.info('Data File Has Been Red Successfully')
 
         return All_Tables
     
