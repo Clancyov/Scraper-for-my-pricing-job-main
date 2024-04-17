@@ -28,15 +28,16 @@ self.fonts = os.path.join(self.iron_input_directory, "Fonts")
 self.outputs_directory = "Outputs"
 self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
 self.iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
-Akhbar_Eghtesadi
-Akhbar_Eghtesadi
+self.iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
+self.iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
+
 Images_Paths = [self.iron_canvas_images_currency_gold_directory,
                 self.iron_canvas_images_akhbar_eghtesadi_directory]
 
 Capacities = [9,12,10,8,7,12,10,6,10]  
 
-Output_Paths = ["Outputs\\Iron\\Images\\Currency_Gold",
-                "Outputs\\Iron\\Images\\Akhbar_Eghtesadi"]
+Output_Paths = [self.iron_images_output_currency_gold_directory,
+               self.iron_images_output_akhbar_eghtesadi_directory]
 
 class Page :
 
@@ -199,7 +200,7 @@ class Iron_Data_Processor :
         
     def Make_Cover_Page( self, input_path, output_path ):
         try:
-            Font_File = "Inputs\\Iron\\Fonts\\BKoodkBd.ttf"
+            Font_File_path = os.path.join(self.fonts, "BKoodkBd.ttf")
             Font_Size = 70
             Font = ImageFont.truetype(Font_File,int(Font_Size))
             Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
