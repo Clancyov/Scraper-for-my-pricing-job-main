@@ -18,13 +18,7 @@ Names = ["1-Tir_Ahan",
          "8-Khamoot",
          "9-Waraq_Galwanize"]
 
-Images_Paths = [self.iron_canvas_images_currency_gold_directory,
-                self.iron_canvas_images_akhbar_eghtesadi_directory]
-
 Capacities = [9,12,10,8,7,12,10,6,10]  
-
-Output_Paths = [self.iron_images_output_currency_gold_directory,
-               self.iron_images_output_akhbar_eghtesadi_directory]
 
 class Page :
 
@@ -51,6 +45,10 @@ class Iron_Data_Processor :
         self.iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
         self.iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
         self.iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
+
+         Output_Paths = [self.iron_images_output_currency_gold_directory,self.iron_images_output_akhbar_eghtesadi_directory]
+             
+         Images_Paths = [self.iron_canvas_images_currency_gold_directory,self.iron_canvas_images_akhbar_eghtesadi_directory]
 
     def Data_Reader ( self, Now) :
 
