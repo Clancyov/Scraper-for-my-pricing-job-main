@@ -42,6 +42,7 @@ class Page :
         self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
         self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
         self.iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
+        self.fonts = os.path.join()
         
 
 
