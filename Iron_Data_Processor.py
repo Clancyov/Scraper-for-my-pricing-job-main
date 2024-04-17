@@ -31,20 +31,18 @@ class Page :
 
 class Iron_Data_Processor :
          
-    def __init__():
-             
-        self.input_directory = "Inputs"
-        self.iron_input_directory = os.path.join(self.input_directory, "Iron")
-        self.iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
-        self.iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
-        self.iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
-        self.iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
-        self.fonts = os.path.join(self.iron_input_directory, "Fonts")
-        self.outputs_directory = "Outputs"
-        self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
-        self.iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
-        self.iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
-        self.iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
+        input_directory = "Inputs"
+        iron_input_directory = os.path.join(self.input_directory, "Iron")
+        iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
+        iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
+        iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
+        iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
+        fonts = os.path.join(self.iron_input_directory, "Fonts")
+        outputs_directory = "Outputs"
+        iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
+        iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
+        iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
+        iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
 
         Output_Paths = [self.iron_images_output_currency_gold_directory,self.iron_images_output_akhbar_eghtesadi_directory]
              
