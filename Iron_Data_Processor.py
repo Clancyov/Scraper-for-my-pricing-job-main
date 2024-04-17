@@ -56,7 +56,7 @@ class Iron_Data_Processor :
         self.iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
         self.scraped_data_iron_outputs_directory = os.path.join(self.iron_outputs_directory, "Scraped_data")
       
-        File_name = "Scraped_data-{Now}.txt"
+        File_name = f"Scraped_data-{Now}.txt"
         # try:
         with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
             for Line in Data_File :
