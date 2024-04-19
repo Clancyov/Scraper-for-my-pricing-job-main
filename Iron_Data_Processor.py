@@ -31,22 +31,22 @@ class Page :
 
 class Iron_Data_Processor :
          
-        input_directory = "Inputs"
-        iron_input_directory = os.path.join(self.input_directory, "Iron")
-        iron_canvas_images_directory = os.path.join(self.iron_input_directory, "Canvas_Images")
-        iron_canvas_images_currency_gold_directory = os.path.join(self.iron_canvas_images_directory, "Currency_Gold")
-        iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(self.iron_canvas_images_directory, "Akhbar_Eghtesadi")
-        iron_positions_directory = os.path.join(self.iron_input_directory, "positions")
-        fonts = os.path.join(self.iron_input_directory, "Fonts")
-        outputs_directory = "Outputs"
-        iron_outputs_directory = os.path.join(self.outputs_directory, "Iron")
-        iron_images_output_directory = os.path.join(self.iron_outputs_directory ,"Images")
-        iron_images_output_currency_gold_directory = os.path.join(self.iron_images_output_directory,"Currency_Gold")
-        iron_images_output_akhbar_eghtesadi_directory = os.path.join(self.iron_images_output_directory,"Akhbar_Eghtesadi")
+    input_directory = "Inputs"
+    iron_input_directory = os.path.join(input_directory, "Iron")
+    iron_canvas_images_directory = os.path.join(iron_input_directory, "Canvas_Images")
+    iron_canvas_images_currency_gold_directory = os.path.join(iron_canvas_images_directory, "Currency_Gold")
+    iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(iron_canvas_images_directory, "Akhbar_Eghtesadi")
+    iron_positions_directory = os.path.join(iron_input_directory, "positions")
+    fonts = os.path.join(iron_input_directory, "Fonts")
+    outputs_directory = "Outputs"
+    iron_outputs_directory = os.path.join(outputs_directory, "Iron")
+    iron_images_output_directory = os.path.join(iron_outputs_directory ,"Images")
+    iron_images_output_currency_gold_directory = os.path.join(iron_images_output_directory,"Currency_Gold")
+    iron_images_output_akhbar_eghtesadi_directory = os.path.join(iron_images_output_directory,"Akhbar_Eghtesadi")
 
-        Output_Paths = [self.iron_images_output_currency_gold_directory,self.iron_images_output_akhbar_eghtesadi_directory]
-             
-        Images_Paths = [self.iron_canvas_images_currency_gold_directory,self.iron_canvas_images_akhbar_eghtesadi_directory]
+    Output_Paths = [iron_images_output_currency_gold_directory,iron_images_output_akhbar_eghtesadi_directory]
+         
+    Images_Paths = [iron_canvas_images_currency_gold_directory,iron_canvas_images_akhbar_eghtesadi_directory]
 
     def Data_Reader ( self, Now) :
 
@@ -177,7 +177,7 @@ class Iron_Data_Processor :
         try:
             Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
             Font_Size = 35
-            Font = ImageFont.truetype(Font_File, int(Font_Size))
+            Font = ImageFont.truetype(Font_File_path, int(Font_Size))
             for Page in Completed_Pages :
                 Raw_Canvas_Image = Image.open(Page.Image)
                 Drawer = ImageDraw.Draw(Raw_Canvas_Image)
@@ -188,8 +188,9 @@ class Iron_Data_Processor :
                     Drawer.text((X, Y),Final_Data,fill="black",font=Font)
                 if not os.path.exists(Path):
                     os.makedirs(Path)
-                    file_path = os.path.join(Path, f"{Page.Name}.png")
-                    Raw_Canvas_Image.save(file_path)
+                file_path = os.path.join(Path, f"{Page.Name}.png")
+                # logger.warning(f"file path is:file_path")
+                Raw_Canvas_Image.save(file_path)
         except:
             logger.critical('Couldent Make Images')
         else:
@@ -199,7 +200,7 @@ class Iron_Data_Processor :
         try:
             Font_File_path = os.path.join(self.fonts, "BKoodkBd.ttf")
             Font_Size = 70
-            Font = ImageFont.truetype(Font_File,int(Font_Size))
+            Font = ImageFont.truetype(Font_File_path,int(Font_Size))
             Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
             Path_Eqtesadi = os.path.join(input_path[1],"Cover.jpg")
             Raw_Canvas_Image_Currencygold = Image.open(Path_Currencygold)
@@ -226,12 +227,12 @@ class Iron_Data_Processor :
             logger.error('Cleaning Data wasnt Successful')
         else:
             logger.info('Data Cleaned')
-        Pages_0 = Processor.Make_Pages_Objects(Images_Paths[0])
-        Pages_1 = Processor.Make_Pages_Objects(Images_Paths[1])
+        Pages_0 = Processor.Make_Pages_Objects(self.Images_Paths[0])
+        Pages_1 = Processor.Make_Pages_Objects(self.Images_Paths[1])
         Pages_With_Data_0 = Processor.Load_Data(Pages_0,Cleaned_Table)
         Pages_With_Data_1 = Processor.Load_Data(Pages_1,Cleaned_Table)
         Completed_Pages_0 =Processor.Load_positions(Pages_With_Data_0)
         Completed_Pages_1 =Processor.Load_positions(Pages_With_Data_1)
-        Tagged_Images_0 = Processor.Make_Tagged_Images(Completed_Pages_0,Output_Paths[0])
-        Tagged_Images_1 = Processor.Make_Tagged_Images(Completed_Pages_1,Output_Paths[1])
-        cover = Processor.Make_Cover_Page(Images_Paths,Output_Paths)
+        Tagged_Images_0 = Processor.Make_Tagged_Images(Completed_Pages_0,self.Output_Paths[0])
+        Tagged_Images_1 = Processor.Make_Tagged_Images(Completed_Pages_1,self.Output_Paths[1])
+        cover = Processor.Make_Cover_Page(self.Images_Paths,self.Output_Paths)
