@@ -189,7 +189,7 @@ class Iron_Data_Processor :
                 if not os.path.exists(Path):
                     os.makedirs(Path)
                 file_path = os.path.join(Path, f"{Page.Name}.png")
-                logger.warning(f"file path is:file_path:{os.path.join(Path, f"{Page.Name}.png")}")
+                logger.warning(f"file path:{os.path.join(Path,Page.Name.png)}")
                 Raw_Canvas_Image.save(file_path)
         except:
             logger.critical('Couldent Make Images')
