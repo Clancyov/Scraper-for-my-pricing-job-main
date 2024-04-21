@@ -174,47 +174,47 @@ class Iron_Data_Processor :
     
 
     def Make_Tagged_Images ( self, Completed_Pages, Path ) :
-        try:
-            Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
-            Font_Size = 35
-            Font = ImageFont.truetype(Font_File_path, int(Font_Size))
-            for Page in Completed_Pages :
-                Raw_Canvas_Image = Image.open(Page.Image)
-                Drawer = ImageDraw.Draw(Raw_Canvas_Image)
-                for Position, Data in zip(Page.Positions,Page.Data) :
-                    X, Y = int(Position[0]), int(Position[1])
-                    access = Iron_Data_Processor()
-                    Final_Data = access.Convert_Data_To_ENG_Numbers(Data[0])
-                    Drawer.text((X, Y),Final_Data,fill="black",font=Font)
-                if not os.path.exists(Path):
-                    os.makedirs(Path)
-                file_path = os.path.join(Path, f"{Page.Name}.png")
-                logger.warning(f"file path:{os.path.join(Path,Page.Name.png)}")
-                Raw_Canvas_Image.save(file_path)
-        except:
-            logger.critical('Couldent Make Images')
-        else:
-            logger.info('Images Has Been Made')
+        # try:
+        Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
+        Font_Size = 35
+        Font = ImageFont.truetype(Font_File_path, int(Font_Size))
+        for Page in Completed_Pages :
+            Raw_Canvas_Image = Image.open(Page.Image)
+            Drawer = ImageDraw.Draw(Raw_Canvas_Image)
+            for Position, Data in zip(Page.Positions,Page.Data) :
+                X, Y = int(Position[0]), int(Position[1])
+                access = Iron_Data_Processor()
+                Final_Data = access.Convert_Data_To_ENG_Numbers(Data[0])
+                Drawer.text((X, Y),Final_Data,fill="black",font=Font)
+            if not os.path.exists(Path):
+                os.makedirs(Path)
+            file_path = os.path.join(Path, f"{Page.Name}.png")
+            logger.warning(f"file path:{os.path.join(Path,Page.Name.png)}")
+            Raw_Canvas_Image.save(file_path)
+        # except:
+        #     logger.critical('Couldent Make Images')
+        # else:
+        #     logger.info('Images Has Been Made')
         
     def Make_Cover_Page( self, input_path, output_path ):
-        # try:
-        Font_File_path = os.path.join(self.fonts, "BKoodkBd.ttf")
-        Font_Size = 70
-        Font = ImageFont.truetype(Font_File_path,int(Font_Size))
-        Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
-        Path_Eqtesadi = os.path.join(input_path[1],"Cover.jpg")
-        Raw_Canvas_Image_Currencygold = Image.open(Path_Currencygold)
-        Raw_Canvas_Image_Eqtesadi = Image.open(Path_Eqtesadi)
-        Drawer_Currencygold = ImageDraw.Draw(Raw_Canvas_Image_Currencygold)
-        Drawer_Eqtesadi = ImageDraw.Draw(Raw_Canvas_Image_Eqtesadi)
-        Drawer_Currencygold.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
-        Drawer_Eqtesadi.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
-        Raw_Canvas_Image_Currencygold.save(os.path.join(output_path[0],"0-cover.png"))
-        Raw_Canvas_Image_Eqtesadi.save(os.path.join(output_path[1],"0-cover.png"))
-        # except:
-            # logger.warning('Couldnt Make The Cover Image')
-        # else:
-            # logger.info('Made Cover Pages') 
+        try:
+            Font_File_path = os.path.join(self.fonts, "BKoodkBd.ttf")
+            Font_Size = 70
+            Font = ImageFont.truetype(Font_File_path,int(Font_Size))
+            Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
+            Path_Eqtesadi = os.path.join(input_path[1],"Cover.jpg")
+            Raw_Canvas_Image_Currencygold = Image.open(Path_Currencygold)
+            Raw_Canvas_Image_Eqtesadi = Image.open(Path_Eqtesadi)
+            Drawer_Currencygold = ImageDraw.Draw(Raw_Canvas_Image_Currencygold)
+            Drawer_Eqtesadi = ImageDraw.Draw(Raw_Canvas_Image_Eqtesadi)
+            Drawer_Currencygold.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
+            Drawer_Eqtesadi.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
+            Raw_Canvas_Image_Currencygold.save(os.path.join(output_path[0],"0-cover.png"))
+            Raw_Canvas_Image_Eqtesadi.save(os.path.join(output_path[1],"0-cover.png"))
+        except:
+            logger.warning('Couldnt Make The Cover Image')
+        else:
+            logger.info('Made Cover Pages') 
 
     def Process( self, Now ) :
 
