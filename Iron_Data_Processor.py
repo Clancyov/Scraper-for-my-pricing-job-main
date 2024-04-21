@@ -214,7 +214,7 @@ class Iron_Data_Processor :
         # except:
             # logger.warning('Couldnt Make The Cover Image')
         # else:
-            # logger.info('Made Cover Pages')
+            # logger.info('Made Cover Pages') 
 
     def Process( self, Now ) :
 
