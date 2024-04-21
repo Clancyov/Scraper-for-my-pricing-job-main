@@ -96,7 +96,7 @@ class Iron_Data_Processor :
         try:
             Pages_Objects = []
             for name, capacity in zip(Names, Capacities) :
-                Page_Object = Page(name, capacity, (Path + "\\" + name + ".jpg") )
+                Page_Object = Page(name, capacity, (Path + "/" + name + ".jpg") )
                 Pages_Objects.append( Page_Object )
         except:
             logger.critical('Failed To Make Page Objects')
