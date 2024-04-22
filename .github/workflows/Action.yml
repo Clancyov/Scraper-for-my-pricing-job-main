@@ -57,7 +57,7 @@ jobs:
         run: python EXPERIMENTS/Telegram/Send_with_telegram.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}  # Assuming you have a Telegram token secret
-          OTHER_SECRET: ${{ secrets.CHAT_ID }}  # Add any other secrets needed by your script
+          CHAT_ID: ${{ secrets.CHAT_ID }}  # Add any other secrets needed by your script
 
         
       - name: Delete file
