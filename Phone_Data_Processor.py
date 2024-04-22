@@ -9,23 +9,29 @@ logger = logging.getLogger(__name__)
 
 # Class to process phone data and generate images.
 class Phone_Data_Processor:
-
+# Scraper-for-my-pricing-job-main/Inputs/Phones
+# apple.jpg   nokia.jpg   samsung.jpg   xiaomi.jpg
+# 
+# 
+    # input_directory = "Inputs"
+    # ph
+    
     # Constructor method to initialize instance variables.
     def __init__(self):
 
         # Get current Jalali date
         self.date = jdatetime.datetime.now().strftime("%Y/%m/%d")
         # Path to plain images directory
-        self.plain_images_path = "Inputs\\Phones\\plain images\\"
+        self.plain_images_path = "Inputs/Phones/plain images/"
         # Path to output images directory
-        self.output_path = "Outputs\\Phones\\Images\\"  
+        self.output_path = "Outputs/Phones/Images/"  
 
 
     # Method to read data from a file.
     def data_reader(self,Now):
         lines=[]
         try:
-            with open(f"Outputs\\Phones\\Scraped_data\\Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
+            with open(f"Outputs/Phones/Scraped_data/Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
                 # Read lines from file
                 lines = file.readlines()
             # Return the red lines
@@ -146,7 +152,7 @@ class Phone_Data_Processor:
         # Get the path of the plain image
         plain_image = os.path.join(self.plain_images_path, f"{name}.jpg")  
         # Path to the font file
-        font_file = "Inputs\\Iron\\Fonts\\IRANSans_Black.ttf"
+        font_file = "Inputs/Iron/Fonts/IRANSans_Black.ttf"
         # Font size  
         font_size = 40  
         # Load the font
