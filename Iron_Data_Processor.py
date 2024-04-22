@@ -179,27 +179,26 @@ class Iron_Data_Processor :
     
 
     def Make_Tagged_Images ( self, Completed_Pages, Path ) :
-        # try:
-        Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
-        Font_Size = 35
-        Font = ImageFont.truetype(Font_File_path, int(Font_Size))
-        for Page in Completed_Pages :
-            Raw_Canvas_Image = Image.open(Page.Image)
-            Drawer = ImageDraw.Draw(Raw_Canvas_Image)
-            for Position, Data in zip(Page.Positions,Page.Data) :
-                X, Y = int(Position[0]), int(Position[1])
-                access = Iron_Data_Processor()
-                Final_Data = access.Convert_Data_To_ENG_Numbers(Data[0])
-                Drawer.text((X, Y),Final_Data,fill="black",font=Font)
-            if not os.path.exists(Path):
-                os.makedirs(Path)
-            file_path = os.path.join(Path, f"{Page.Name}.png")
-            logger.warning(f"file path:{os.path.join(Path,Page.Name)}.png")
-            Raw_Canvas_Image.save(file_path)
-        # except:
-        #     logger.critical('Couldent Make Images')
-        # else:
-        #     logger.info('Images Has Been Made')
+        try:
+            Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
+            Font_Size = 35
+            Font = ImageFont.truetype(Font_File_path, int(Font_Size))
+            for Page in Completed_Pages :
+                Raw_Canvas_Image = Image.open(Page.Image)
+                Drawer = ImageDraw.Draw(Raw_Canvas_Image)
+                for Position, Data in zip(Page.Positions,Page.Data) :
+                    X, Y = int(Position[0]), int(Position[1])
+                    access = Iron_Data_Processor()
+                    Final_Data = access.Convert_Data_To_ENG_Numbers(Data[0])
+                    Drawer.text((X, Y),Final_Data,fill="black",font=Font)
+                if not os.path.exists(Path):
+                    os.makedirs(Path)
+                file_path = os.path.join(Path, f"{Page.Name}.png")
+                Raw_Canvas_Image.save(file_path)
+        except:
+            logger.critical('Couldent Make Images')
+        else:
+            logger.info('Images Has Been Made')
         
     def Make_Cover_Page( self, input_path, output_path ):
         try:
