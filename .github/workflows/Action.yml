@@ -48,7 +48,10 @@ jobs:
              token: ${{ secrets.TELEGRAM_TOKEN }}
              message: test
              document: Outputs/Phones/Images/samsung1.png
-
+             
+      - name: Delete file
+        run: rm example.txt
+        
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
