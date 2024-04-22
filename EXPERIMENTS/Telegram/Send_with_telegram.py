@@ -5,6 +5,8 @@ import telegram
 TOKEN = os.environ.get('TELEGRAM_TOKEN')
 chat_id = os.environ.get('CHAT_ID')
 
+print("token:  ",TOKEN)
+print("chat_id:  ",chat_id)
 bot = telegram.Bot(token=TOKEN)
 
 async def send_document(document, chat_id):
