@@ -1,3 +1,24 @@
+import asyncio
+import os
+import telegram
+
+TOKEN = os.environ.get('TELEGRAM_TOKEN')
+chat_id = os.environ.get('CHAT_ID')
+
+bot = telegram.Bot(token=TOKEN)
+
+async def send_document(document, chat_id):
+    async with bot:
+        await bot.send_document(document=document, chat_id=chat_id)
+
+async def main():
+    # Sending a document
+    await send_document(document=open('Outputs/Phones/Images/samsung0.png', 'rb'), chat_id=chat_id)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+
+
 # import os
 # from telegram import Bot
 # from telegram.error import TelegramError
@@ -27,24 +48,29 @@
 
 # if __name__ == '__main__':
 #     main()
-import os
-from telethon import TelegramClient
 
-# Your Telegram bot token
-TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
-CHAT_ID = os.environ.get('CHAT_ID')
-FILES_DIRECTORY = 'Outputs/Phones/Images'
 
-async def send_files():
-    async with TelegramClient('session_name', api_id=None, api_hash=None, bot_token=TOKEN) as client:
-        for filename in os.listdir(FILES_DIRECTORY):
-            file_path = os.path.join(FILES_DIRECTORY, filename)
-            try:
-                await client.send_file(CHAT_ID, file_path)
-                print(f"File '{filename}' sent successfully")
-            except Exception as e:
-                print(f"Failed to send file '{filename}': {e}")
 
-if __name__ == '__main__':
-    with TelegramClient('anon', api_id=None, api_hash=None, bot_token=TOKEN) as client:
-        client.loop.run_until_complete(send_files())
+
+
+# import os
+# from telethon import TelegramClient
+
+# # Your Telegram bot token
+# TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+# CHAT_ID = os.environ.get('CHAT_ID')
+# FILES_DIRECTORY = 'Outputs/Phones/Images'
+
+# async def send_files():
+#     async with TelegramClient('session_name', api_id=None, api_hash=None, bot_token=TOKEN) as client:
+#         for filename in os.listdir(FILES_DIRECTORY):
+#             file_path = os.path.join(FILES_DIRECTORY, filename)
+#             try:
+#                 await client.send_file(CHAT_ID, file_path)
+#                 print(f"File '{filename}' sent successfully")
+#             except Exception as e:
+#                 print(f"Failed to send file '{filename}': {e}")
+
+# if __name__ == '__main__':
+#     with TelegramClient('anon', api_id=None, api_hash=None, bot_token=TOKEN) as client:
+#         client.loop.run_until_complete(send_files())
