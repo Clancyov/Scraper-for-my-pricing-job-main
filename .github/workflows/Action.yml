@@ -39,7 +39,7 @@ jobs:
              to: ${{ secrets.CHAT_ID }}
              token: ${{ secrets.TELEGRAM_TOKEN }}
              message: test
-             # photo: test_photo1.png
+             photo: Output/Phones/Images/samsung0.png
              document: Output/Phones/Images/samsung0.png
 
       - name: push changes
