@@ -30,7 +30,8 @@ class Page :
         self.Positions=Positions
 
 class Iron_Data_Processor :
-         
+
+    Now=None
     input_directory = "Inputs"
     iron_input_directory = os.path.join(input_directory, "Iron")
     iron_canvas_images_directory = os.path.join(iron_input_directory, "Canvas_Images")
@@ -38,11 +39,13 @@ class Iron_Data_Processor :
     iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(iron_canvas_images_directory, "Akhbar_Eghtesadi")
     iron_positions_directory = os.path.join(iron_input_directory, "positions")
     fonts = os.path.join(iron_input_directory, "Fonts")
+         
     outputs_directory = "Outputs"
     iron_outputs_directory = os.path.join(outputs_directory, "Iron")
     iron_images_output_directory = os.path.join(iron_outputs_directory ,"Images")
-    iron_images_output_currency_gold_directory = os.path.join(iron_images_output_directory,"Currency_Gold")
-    iron_images_output_akhbar_eghtesadi_directory = os.path.join(iron_images_output_directory,"Akhbar_Eghtesadi")
+    iron_Images_today_output_directory = os.path.join(iron_images_output_directory, Now )
+    iron_images_output_currency_gold_directory = os.path.join(iron_Images_today_output_directory,"Currency_Gold")
+    iron_images_output_akhbar_eghtesadi_directory = os.path.join(iron_Images_today_output_directory,"Akhbar_Eghtesadi")
 
     Output_Paths = [iron_images_output_currency_gold_directory,iron_images_output_akhbar_eghtesadi_directory]
          
@@ -217,7 +220,7 @@ class Iron_Data_Processor :
             logger.info('Made Cover Pages') 
 
     def Process( self, Now ) :
-
+        self.Now=Now
         Processor = Iron_Data_Processor()
         Table = Processor.Data_Reader(Now)
         Shaped_Table = Processor.Shaper(Table)
