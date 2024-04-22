@@ -32,15 +32,22 @@ jobs:
           git add -A
           git status
           git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
-        
+
+      - name: List files in directory
+        id: list-files
+        run: |
+          files=$(find Outputs/Phones/Images -type f)
+          echo "::set-output name=files::$files"
+          
       - name: Telegram Actions
         uses: appleboy/telegram-action@master
         with:
              to: ${{ secrets.CHAT_ID }}
              token: ${{ secrets.TELEGRAM_TOKEN }}
              message: test
-             photo: Outputs/Phones/Images/samsung0.png
-             document: Outputs/Phones/Images/samsung0.png
+             # photo: Outputs/Phones/Images/samsung0.png
+             # document: Outputs/Phones/Images/samsung0.png
+             files: ${{ steps.list-files.outputs.files }}
 
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
