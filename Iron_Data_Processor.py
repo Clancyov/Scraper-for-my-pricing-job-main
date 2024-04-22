@@ -31,7 +31,7 @@ class Page :
 
 class Iron_Data_Processor :
 
-    Now=None
+    Now=""
     input_directory = "Inputs"
     iron_input_directory = os.path.join(input_directory, "Iron")
     iron_canvas_images_directory = os.path.join(iron_input_directory, "Canvas_Images")
