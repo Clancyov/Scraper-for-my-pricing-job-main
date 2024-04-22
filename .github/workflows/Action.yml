@@ -47,7 +47,7 @@ jobs:
              message: test
              # photo: Outputs/Phones/Images/samsung0.png
              # document: Outputs/Phones/Images/samsung0.png
-             files: ${{ steps.list-files.outputs.files }}
+             document: ${{ steps.list-files.outputs.files }}
 
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
