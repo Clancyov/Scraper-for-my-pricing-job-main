@@ -40,8 +40,14 @@ jobs:
              token: ${{ secrets.TELEGRAM_TOKEN }}
              message: test
              document: Outputs/Phones/Images/samsung0.png
+
+      - name: Telegram Actions
+        uses: appleboy/telegram-action@master
+        with:
+             to: ${{ secrets.CHAT_ID }}
+             token: ${{ secrets.TELEGRAM_TOKEN }}
+             message: test
              document: Outputs/Phones/Images/samsung1.png
-             document: Outputs/Phones/Images/samsung2.png
 
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
