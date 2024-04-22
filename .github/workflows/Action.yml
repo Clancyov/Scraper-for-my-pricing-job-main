@@ -51,7 +51,7 @@ jobs:
 
       - name: install telegram dependencys
         run:
-          pip install telegram
+          pip install telethon
           
       - name: Run Python script
         run: python EXPERIMENTS/Telegram/Send_with_telegram.py
