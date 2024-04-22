@@ -5,6 +5,9 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import csv
 import jdatetime
+import time
+
+Now=time.strftime('(%Y_%m_%d--%H_%M)')
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +34,6 @@ class Page :
 
 class Iron_Data_Processor :
 
-    Now=""
     input_directory = "Inputs"
     iron_input_directory = os.path.join(input_directory, "Iron")
     iron_canvas_images_directory = os.path.join(iron_input_directory, "Canvas_Images")
