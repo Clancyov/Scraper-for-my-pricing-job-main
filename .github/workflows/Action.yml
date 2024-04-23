@@ -32,22 +32,6 @@ jobs:
           git add -A
           git status
           git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
-          
-      # - name: Telegram Actions
-      #   uses: appleboy/telegram-action@master
-      #   with:
-      #        to: ${{ secrets.CHAT_ID }}
-      #        token: ${{ secrets.TELEGRAM_TOKEN }}
-      #        message: test
-      #        document: Outputs/Phones/Images/samsung0.png
-
-      # - name: Telegram Actions
-      #   uses: appleboy/telegram-action@master
-      #   with:
-      #        to: ${{ secrets.CHAT_ID }}
-      #        token: ${{ secrets.TELEGRAM_TOKEN }}
-      #        message: test
-      #        document: Outputs/Phones/Images/samsung1.png
 
       - name: install telegram dependencys
         run:
@@ -56,12 +40,8 @@ jobs:
       - name: Run Python script
         run: python Send_with_telegram.py
         env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}  # Assuming you have a Telegram token secret
-          CHAT_ID: ${{ secrets.CHAT_ID }}  # Add any other secrets needed by your script
-
-        
-      - name: Delete file
-        run: rm example.txt
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
