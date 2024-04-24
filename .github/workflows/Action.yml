@@ -32,13 +32,6 @@ jobs:
           git add -A
           git status
           git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
-
-      - name: install telegram dependencys
-        run:
-          pip install python-telegram-bot
-          
-      - name: Run Python script
-        run: python Send_with_telegram.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
