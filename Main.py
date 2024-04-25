@@ -28,14 +28,14 @@ class main:
     def Make_Car_Pricelists(self):
         pass
 
-    def Send_Outputs_With_Telegram(self):
+    # def Send_Outputs_With_Telegram(self):
         
-        Sender = Sender()
-        Sender.Send(Now)
+    #     Sender = Sender()
+    #     Sender.Send(Now)
     
 Runner=main()
 Runner.Make_Iron_Pricelists()
 Runner.Make_Phone_Pricelists()
-Runner.Send_Outputs_with_Telegram()
+# Runner.Send_Outputs_with_Telegram()
 
 Logger.info('Finished')
