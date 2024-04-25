@@ -1,7 +1,7 @@
 import logging
 from Iron import Iron
 from Phone import Phone
-from Telegram_Sender import Sender
+# from Telegram_Sender import Sender
 
 import time
 
