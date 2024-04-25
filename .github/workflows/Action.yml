@@ -1,9 +1,9 @@
 name: Project Runner  
 
 # on:
-  # push:
-    # branches:
-      # - main
+#   push:
+#     branches:
+#       - main
 
 jobs: 
   run_script:
