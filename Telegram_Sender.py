@@ -24,15 +24,17 @@ class Sender:
                     await self.bot.send_document(document=file,chat_id=self.chat_id)
 
     async def runner(self,Now):
-        try:
+        try:      
+            await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
+
+            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
+        
             # Sending all documents in the directory
             await self.send_document(f'Log/Main_Logs/{Now}.log')
 
             await self.Send_Directory_Containing(f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi')
 
-            await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
 
-            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
         except:
             logger.critical('Files Didnt sent')
         else:
