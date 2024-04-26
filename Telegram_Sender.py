@@ -25,9 +25,10 @@ class Sender:
 
     async def runner(self,Now):
         try:      
+            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
+            
             await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
 
-            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
         
             # Sending all documents in the directory
             await self.send_document(f'Log/Main_Logs/{Now}.log')
