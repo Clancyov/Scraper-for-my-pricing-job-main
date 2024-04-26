@@ -9,29 +9,25 @@ logger = logging.getLogger(__name__)
 
 # Class to process phone data and generate images.
 class Phone_Data_Processor:
-# Scraper-for-my-pricing-job-main/Inputs/Phones
-# apple.jpg   nokia.jpg   samsung.jpg   xiaomi.jpg
-# 
-# 
-    # input_directory = "Inputs"
-    # ph
+
+    Font_dir_Path = "Inputs/Iron/Fonts"
+    Plain_Images_Path = "Inputs/Phones/plain_images"
+    Scraped_Data_path = "Outputs/Phones/Scraped_data"
+    output_path = "None"
+
+    date = jdatetime.datetime.now().strftime("%Y/%m/%d")
     
-    # Constructor method to initialize instance variables.
-    def __init__(self):
+    def Make_Paths(self, Now):
 
-        # Get current Jalali date
-        self.date = jdatetime.datetime.now().strftime("%Y/%m/%d")
-        # Path to plain images directory
-        self.plain_images_path = "Inputs/Phones/plain images/"
-        # Path to output images directory
-        self.output_path = "Outputs/Phones/Images/"  
+        self.output_path = f"Outputs/Phones/Images/{Now}"
 
+        os.makedirs(self.output_path, exist_ok=True)
 
     # Method to read data from a file.
     def data_reader(self,Now):
         lines=[]
         try:
-            with open(f"Outputs/Phones/Scraped_data/Scraped_data-{Now}.txt", 'r', encoding='utf-8') as file:
+            with open(os.path.join(self.Scraped_Data_path,f"Scraped_data-{Now}.txt"), 'r', encoding='utf-8') as file:
                 # Read lines from file
                 lines = file.readlines()
             # Return the red lines
@@ -150,9 +146,9 @@ class Phone_Data_Processor:
     def write_on_images(self, data_list, name, c):
 
         # Get the path of the plain image
-        plain_image = os.path.join(self.plain_images_path, f"{name}.jpg")  
+        plain_image = os.path.join(self.Plain_Images_Path, f"{name}.jpg")  
         # Path to the font file
-        font_file = "Inputs/Iron/Fonts/IRANSans_Black.ttf"
+        font_file = os.path.join(self.Font_dir_Path, "IRANSans_Black.ttf")
         # Font size  
         font_size = 40  
         # Load the font
@@ -187,34 +183,34 @@ class Phone_Data_Processor:
     # Method to divide the data into chunks and create images for each chunk.
     def divide_and_make_images(self, brands):
 
-        try:
-            # Counter for naming images
-            counter = 0  
-            # Temporary list to store data for each image
-            temp_list = []  
-            for brand in brands:
-                for idx, item in enumerate(brand):
-                    # Add item to temporary list
-                    temp_list.append(item)  
-                    # Check if the temporary list is full or if it's the last item in the brand list
-                    if len(temp_list) == 15 or idx == len(brand) - 1:
-                        if brand == brands[0]:
-                            # Set the name based on the brand
-                            name = "samsung"  
-                        elif brand == brands[1]: 
-                            name = "xiaomi"
-                        elif brand == brands[2]:
-                            name = "nokia"
-                        # Write data onto image
-                        self.write_on_images(data_list=temp_list, name=name, c=counter) 
-                        # Increment counter 
-                        counter += 1  
-                        # Reset temporary list
-                        temp_list = []
-        except:
-            logging.critical('Couldnt Make Images')
-        else:
-            logging.info('Images Have Been Made')
+        # try:
+        # Counter for naming images
+        counter = 0  
+        # Temporary list to store data for each image
+        temp_list = []  
+        for brand in brands:
+            for idx, item in enumerate(brand):
+                # Add item to temporary list
+                temp_list.append(item)  
+                # Check if the temporary list is full or if it's the last item in the brand list
+                if len(temp_list) == 15 or idx == len(brand) - 1:
+                    if brand == brands[0]:
+                        # Set the name based on the brand
+                        name = "samsung"  
+                    elif brand == brands[1]: 
+                        name = "xiaomi"
+                    elif brand == brands[2]:
+                        name = "nokia"
+                    # Write data onto image
+                    self.write_on_images(data_list=temp_list, name=name, c=counter) 
+                    # Increment counter 
+                    counter += 1  
+                    # Reset temporary list
+                    temp_list = []
+        # except:
+        #     logging.critical('Couldnt Make Images')
+        # else:
+        #     logging.info('Images Have Been Made')
             
         return 0
 
@@ -222,6 +218,7 @@ class Phone_Data_Processor:
     # Method to execute the data processing pipeline.
     def Process(self,Now):
 
+        self.Make_Paths(Now)
         # Read raw data
         raw_list = self.data_reader(Now)  
         # Filter the raw data

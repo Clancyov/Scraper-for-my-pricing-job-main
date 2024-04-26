@@ -7,8 +7,6 @@ import csv
 import jdatetime
 import time
 
-Now=time.strftime('(%Y_%m_%d--%H_%M)')
-
 logger = logging.getLogger(__name__)
 
 Names = ["1-Tir_Ahan",
@@ -34,33 +32,27 @@ class Page :
 
 class Iron_Data_Processor :
 
-    input_directory = "Inputs"
-    iron_input_directory = os.path.join(input_directory, "Iron")
-    iron_canvas_images_directory = os.path.join(iron_input_directory, "Canvas_Images")
-    iron_canvas_images_currency_gold_directory = os.path.join(iron_canvas_images_directory, "Currency_Gold")
-    iron_canvas_images_akhbar_eghtesadi_directory = os.path.join(iron_canvas_images_directory, "Akhbar_Eghtesadi")
-    iron_positions_directory = os.path.join(iron_input_directory, "positions")
-    fonts = os.path.join(iron_input_directory, "Fonts")
-         
-    outputs_directory = "Outputs"
-    iron_outputs_directory = os.path.join(outputs_directory, "Iron")
-    iron_images_output_directory = os.path.join(iron_outputs_directory ,"Images")
-    iron_Images_today_output_directory = os.path.join(iron_images_output_directory, Now )
-    iron_images_output_currency_gold_directory = os.path.join(iron_Images_today_output_directory,"Currency_Gold")
-    iron_images_output_akhbar_eghtesadi_directory = os.path.join(iron_Images_today_output_directory,"Akhbar_Eghtesadi")
+    Font_dir_Path = "None"
+    Positions_Path = "None"
+    Images_Paths = [f"Inputs/Iron/Canvas_Images/Currency_Gold",f"Inputs/Iron/Canvas_Images/Akhbar_Eghtesadi"]
+    Scraped_Data_path = "None"
 
-    Output_Paths = [iron_images_output_currency_gold_directory,iron_images_output_akhbar_eghtesadi_directory]
-         
-    Images_Paths = [iron_canvas_images_currency_gold_directory,iron_canvas_images_akhbar_eghtesadi_directory]
+    def Make_Paths(self,Now):
+
+        self.Positions_Path = "Inputs/Iron/positions/positions.csv"
+        self.Font_dir_Path = "Inputs/Iron/Fonts"
+        self.Scraped_Data_path = f"Outputs/Iron/Scraped_Data/Scraped_Data-{Now}.txt"
+
+        os.makedirs(f"Inputs/Iron/Canvas_Images/{Now}/Currency_Gold", exist_ok=True)
+        os.makedirs(f"Inputs/Iron/Canvas_Images/{Now}/Akhbar_Eghtesadi", exist_ok=True)
+
 
     def Data_Reader ( self, Now) :
 
         All_Tables=[]
-        self.scraped_data_iron_outputs_directory = os.path.join(self.iron_outputs_directory, "Scraped_data")
       
-        File_name = f"Scraped_data-{Now}.txt"
         try:
-            with open (os.path.join(self.scraped_data_iron_outputs_directory,File_name) , "r" , encoding = "utf-8" ) as Data_File :
+            with open (self.Scraped_Data_path , "r" , encoding = "utf-8" ) as Data_File :
                 for Line in Data_File :
                     All_Tables.append(Line)        
         except:
@@ -132,9 +124,8 @@ class Iron_Data_Processor :
 
         Positions = []
         Page_Positions = []
-        File_name="positions.csv"
         try:
-            with open (os.path.join(self.iron_positions_directory, File_name) , mode='r' , encoding = 'utf-8' ) as File :
+            with open (self.Positions_Path , mode='r' , encoding = 'utf-8' ) as File :
                 reader = csv.reader(File)
                 for row in reader :
                     Positions.append(row)
@@ -180,7 +171,7 @@ class Iron_Data_Processor :
 
     def Make_Tagged_Images ( self, Completed_Pages, Path ) :
         try:
-            Font_File_path = os.path.join(self.fonts, "IRANSans_Black.ttf")
+            Font_File_path = os.path.join(self.Font_dir_Path, "IRANSans_Black.ttf")
             Font_Size = 35
             Font = ImageFont.truetype(Font_File_path, int(Font_Size))
             for Page in Completed_Pages :
@@ -202,8 +193,8 @@ class Iron_Data_Processor :
         
     def Make_Cover_Page( self, input_path, output_path ):
         try:
-            Font_File_path = os.path.join(self.fonts, "BKoodkBd.ttf")
-            Font_Size = 70
+            Font_File_path = os.path.join(self.Font_dir_Path, "BKoodkBd.ttf")
+            Font_Size = 80
             Font = ImageFont.truetype(Font_File_path,int(Font_Size))
             Path_Currencygold = os.path.join(input_path[0],"Cover.jpg")
             Path_Eqtesadi = os.path.join(input_path[1],"Cover.jpg")
@@ -221,8 +212,9 @@ class Iron_Data_Processor :
             logger.info('Made Cover Pages') 
 
     def Process( self, Now ) :
-        self.Now=Now
         Processor = Iron_Data_Processor()
+        Processor.Make_Paths(Now)
+        Output_Paths = [f"Outputs/Iron/Images/{Now}/Currency_Gold",f"Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi"]
         Table = Processor.Data_Reader(Now)
         Shaped_Table = Processor.Shaper(Table)
         try:
@@ -237,6 +229,6 @@ class Iron_Data_Processor :
         Pages_With_Data_1 = Processor.Load_Data(Pages_1,Cleaned_Table)
         Completed_Pages_0 =Processor.Load_positions(Pages_With_Data_0)
         Completed_Pages_1 =Processor.Load_positions(Pages_With_Data_1)
-        Tagged_Images_0 = Processor.Make_Tagged_Images(Completed_Pages_0,self.Output_Paths[0])
-        Tagged_Images_1 = Processor.Make_Tagged_Images(Completed_Pages_1,self.Output_Paths[1])
-        cover = Processor.Make_Cover_Page(self.Images_Paths,self.Output_Paths)
+        Tagged_Images_0 = Processor.Make_Tagged_Images(Completed_Pages_0,Output_Paths[0])
+        Tagged_Images_1 = Processor.Make_Tagged_Images(Completed_Pages_1,Output_Paths[1])
+        cover = Processor.Make_Cover_Page(self.Images_Paths,Output_Paths)

@@ -8,19 +8,16 @@ Logger = logging.getLogger(__name__)
 
 class Iron_Scraper :
 
-    def __init__(self):
-        # Define the directory structure
-        self.output_directory = "Outputs"
-        self.iron_directory = os.path.join(self.output_directory, "Iron")
-        self.scraped_data_directory = os.path.join(self.iron_directory, "Scraped_data")
+    Output_Path = None
 
-        # Create the directories if they don't exist
-        os.makedirs(self.output_directory, exist_ok=True)
-        os.makedirs(self.iron_directory, exist_ok=True)
-        os.makedirs(self.scraped_data_directory, exist_ok=True)
+    def Make_Paths(self):
 
+        self.Output_Path = f"Outputs/Iron/Scraped_Data"
+        os.makedirs(self.Output_Path, exist_ok=True)
 
     def Scrap ( self, Now) :
+
+        self.Make_Paths()
 
         # link to the webpage which data is there
         URL = "https://www.iranjib.ir/showgroup/38/%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%87%D9%86-%D8%A2%D9%84%D8%A7%D8%AA/"
@@ -75,8 +72,8 @@ class Iron_Scraper :
         #Save2
         try:        
             # saving the output in a textfile
-            file_name = f"Scraped_data-{Now}.txt"
-            file_path = os.path.join(self.scraped_data_directory, file_name)
+            file_name = f"Scraped_Data-{Now}.txt"
+            file_path = os.path.join(self.Output_Path, file_name)
             with open(file_path, 'w', encoding='utf-8') as File:
                 for data in All_Data:
                     File.write(data)
