@@ -12,7 +12,7 @@ class Phone_Data_Processor:
 
     Font_dir_Path = "Inputs/Iron/Fonts"
     Plain_Images_Path = "Inputs/Phones/plain_images"
-    Scraped_Data_path = "Outputs/Phones/Scraped_data"
+    Scraped_Data_path = "Outputs/Phones/Scraped_Data"
     output_path = "None"
 
     date = jdatetime.datetime.now().strftime("%Y/%m/%d")
