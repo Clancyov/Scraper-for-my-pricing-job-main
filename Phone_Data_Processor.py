@@ -27,7 +27,7 @@ class Phone_Data_Processor:
     def data_reader(self,Now):
         lines=[]
         try:
-            with open(os.path.join(self.Scraped_Data_path,f"Scraped_data-{Now}.txt"), 'r', encoding='utf-8') as file:
+            with open(os.path.join(self.Scraped_Data_path,f"Scraped_Data-{Now}.txt"), 'r', encoding='utf-8') as file:
                 # Read lines from file
                 lines = file.readlines()
             # Return the red lines
