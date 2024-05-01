@@ -2,7 +2,7 @@ name: Project Runner
 
 on:
   schedule:
-    - cron: "8 23 * * *"
+    - cron: "30 11 * * *"
 
 jobs: 
   run_script:
