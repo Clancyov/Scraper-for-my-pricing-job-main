@@ -12,7 +12,7 @@ class Phone_Data_Processor:
 
     Font_dir_Path = "Inputs/Iron/Fonts"
     Plain_Images_Path = "Inputs/Phones/plain_images"
-    Scraped_Data_path = "Outputs/Phones/Scraped_data"
+    Scraped_Data_path = "Outputs/Phones/Scraped_Data"
     output_path = "None"
 
     date = jdatetime.datetime.now().strftime("%Y/%m/%d")
@@ -27,7 +27,7 @@ class Phone_Data_Processor:
     def data_reader(self,Now):
         lines=[]
         try:
-            with open(os.path.join(self.Scraped_Data_path,f"Scraped_data-{Now}.txt"), 'r', encoding='utf-8') as file:
+            with open(os.path.join(self.Scraped_Data_path,f"Scraped_Data-{Now}.txt"), 'r', encoding='utf-8') as file:
                 # Read lines from file
                 lines = file.readlines()
             # Return the red lines

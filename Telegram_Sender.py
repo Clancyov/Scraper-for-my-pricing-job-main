@@ -25,16 +25,15 @@ class Sender:
 
     async def runner(self,Now):
         try:
+            # Sending all documents in the directory
+            await self.send_document(f'Log/Main_Logs/{Now}.log')
 
             await self.Send_Directory_Containing(f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi')
 
             await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
 
-            await self.Send_Directory_Containing(f"Phones/Images/{Now}")            # Sending all documents in the directory
-
-            await self.send_document(f'Log/Main_Logs/{Now}.log')
-
+            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
         except:
-            logger.critical('Files didnt sent')
+            logger.critical('Files Didnt sent')
         else:
             logger.info("all files have been sent successfully")
