@@ -185,7 +185,7 @@ class Iron_Data_Processor :
                 if not os.path.exists(Path):
                     os.makedirs(Path)
                 file_path = os.path.join(Path, f"{Page.Name}.png")
-                Raw_Canvas_Image= Raw_Canvas_Image.resize((540,540))
+                Raw_Canvas_Image= Raw_Canvas_Image.resize((700,700))
                 Raw_Canvas_Image.save(file_path)
         except:
             logger.critical('Couldent Make Images')
