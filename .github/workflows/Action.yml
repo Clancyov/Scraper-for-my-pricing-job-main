@@ -30,9 +30,13 @@ jobs:
         with:
             path: "Requierments.txt"
 
+      - name: Delay for 5 minutes
+        run: sleep 300
+
       - name: execute main
         run: |
           python Main.py
+          sleep 30
           git config --local user.email "aminachak8182@gmail.com"
           git config --local user.name "Clancyov"
           git add -A
