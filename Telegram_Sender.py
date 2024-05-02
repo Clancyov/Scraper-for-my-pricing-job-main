@@ -26,7 +26,7 @@ class Sender:
     async def runner(self,Now):
         try:
 
-            await self.Send_Directory_Containing(f"Phones/Images/{Now}")
+            await self.Send_Directory_Containing(f"Outputs/Phones/Images/{Now}")
         
             await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
             
