@@ -176,7 +176,8 @@ class Phone_Data_Processor:
             # Increase y-coordinate for next item
             y += 65  
             # Save the modified image
-
+        
+        plain_image= plain_image.resize((700,700))
         plain_image.save(os.path.join(self.output_path, f"{name}{c}.png"))
 
 
