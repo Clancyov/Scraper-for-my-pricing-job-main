@@ -205,6 +205,8 @@ class Iron_Data_Processor :
             Drawer_Eqtesadi = ImageDraw.Draw(Raw_Canvas_Image_Eqtesadi)
             Drawer_Currencygold.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
             Drawer_Eqtesadi.text((40,950),jdatetime.datetime.now().strftime("%Y/%m/%d"),fill="white",font=Font)
+            Raw_Canvas_Image_Currencygold= Raw_Canvas_Image_Currencygold.resize((700,700))
+            Raw_Canvas_Image_Eqtesadi= Raw_Canvas_Image_Eqtesadi.resize((700,700))
             Raw_Canvas_Image_Currencygold.save(os.path.join(output_path[0],"0-cover.png"))
             Raw_Canvas_Image_Eqtesadi.save(os.path.join(output_path[1],"0-cover.png"))
         except:
