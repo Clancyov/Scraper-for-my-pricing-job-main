@@ -5,6 +5,7 @@ import re
 import os   
 import jdatetime
 
+
 logger = logging.getLogger(__name__)
 
 # Class to process phone data and generate images.
