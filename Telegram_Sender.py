@@ -35,14 +35,14 @@ class Sender:
                         zipf.write(file_path, arcname=relative_path)
 
     async def runner(self,Now):
-        try:
-            directories_to_zip = [f"Outputs/Phones/Images/{Now}", f"Outputs/Iron/Images/{Now}/Currency_Gold" , f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi']
-            output_zip_file = f"zips/{Now}output.zip"
-            zip_directories(output_zip_file, *directories_to_zip)
-        except:
-            logger.critical('Files Didnt zipped')
-        else:
-            logger.info("all files have been ziped successfully")
+        # try:
+        directories_to_zip = [f"Outputs/Phones/Images/{Now}", f"Outputs/Iron/Images/{Now}/Currency_Gold" , f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi']
+        output_zip_file = f"zips/{Now}output.zip"
+        zip_directories(output_zip_file, *directories_to_zip)
+        # except:
+            # logger.critical('Files Didnt zipped')
+        # else:
+            # logger.info("all files have been ziped successfully")
 
         try:
             # await self.Send_Directory_Containing(f"Outputs/Phones/Images/{Now}")
