@@ -1,6 +1,7 @@
 import os
 import telegram
 import logging
+import zipfile
 
 logger = logging.getLogger(__name__)
 
@@ -22,20 +23,38 @@ class Sender:
                 file_path = os.path.join(directory, filename)
                 with open(file_path, 'rb') as file:
                     await self.bot.send_document(document=file,chat_id=self.chat_id)
+                    
+    def zipper(target,*sources):
+        with zipfile.ZipFile(output_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for directory in directories:
+                for root, dirs, files in os.walk(directory):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        # Create a relative path for the file inside the zip archive
+                        relative_path = os.path.relpath(file_path, os.path.dirname(directory))
+                        zipf.write(file_path, arcname=relative_path)
 
     async def runner(self,Now):
         try:
+            directories_to_zip = [f"Outputs/Phones/Images/{Now}", f"Outputs/Iron/Images/{Now}/Currency_Gold" , f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi']
+            output_zip_file = f"zips/{Now}output.zip"
+            zip_directories(output_zip_file, *directories_to_zip)
+        except:
+            logger.critical('Files Didnt zipped')
+        else:
+            logger.info("all files have been ziped successfully")
 
-            await self.Send_Directory_Containing(f"Outputs/Phones/Images/{Now}")
+        try:
+            # await self.Send_Directory_Containing(f"Outputs/Phones/Images/{Now}")
         
-            await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
+            # await self.Send_Directory_Containing(f"Outputs/Iron/Images/{Now}/Currency_Gold")
             
-            await self.Send_Directory_Containing(f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi')
+            # await self.Send_Directory_Containing(f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi')
 
             # Sending all documents in the directory
             await self.send_document(f'Log/Main_Logs/{Now}.log')
-            
+            await self.send_document(f'zips/{Now}output.zip')
         except:
-            logger.critical('Files Didnt sent')
+            logger.critical("didnt sent")
         else:
-            logger.info("all files have been sent successfully")
+            logger.info("sent successfully")
