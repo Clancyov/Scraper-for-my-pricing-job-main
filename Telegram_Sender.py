@@ -38,6 +38,7 @@ class Sender:
         # try:
         directories_to_zip = [f"Outputs/Phones/Images/{Now}", f"Outputs/Iron/Images/{Now}/Currency_Gold" , f'Outputs/Iron/Images/{Now}/Akhbar_Eghtesadi']
         output_zip_file = f"zips/{Now}output.zip"
+        os.makedirs(output_zip_file, exist_ok=True)
         self.zipper(output_zip_file, *directories_to_zip)
         # except:
             # logger.critical('Files Didnt zipped')
