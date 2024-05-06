@@ -24,7 +24,7 @@ class Sender:
                 with open(file_path, 'rb') as file:
                     await self.bot.send_document(document=file,chat_id=self.chat_id)
                     
-    def zipper(target,*sources):
+    def zipper(self,target,*sources):
         with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for directory in sources:
                 for root, dirs, files in os.walk(directory):
