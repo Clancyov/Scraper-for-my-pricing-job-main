@@ -40,7 +40,7 @@ class Iron_Scraper :
             All_Tables = Main_Soup.find_all("table")
 
             # choosing the table which we want
-            Price_Table_Soup = BeautifulSoup(str(All_Tables[2]), 'lxml')
+            Price_Table_Soup = BeautifulSoup(str(All_Tables[1]), 'lxml')
 
             # the needed data will be save in this array 
             All_Data = []
